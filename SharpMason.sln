@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpMason.Logging.AspNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpMason.Extensions", "SharpMason.Extensions\SharpMason.Extensions.csproj", "{CC223E1D-3AE4-44CD-B35D-6B65A2101058}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpMasonTest", "SharpMasonTest", "{ADA4D4BF-43EA-45EC-B38F-7E1B5F1AA9E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{ADA4D4BF-43EA-45EC-B38F-7E1B5F1AA9E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +50,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FF426158-0CB5-4AED-81CF-F8ABFC402EA4} = {ADA4D4BF-43EA-45EC-B38F-7E1B5F1AA9E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C80AB54-7C66-43F9-8628-7C782D095ACE}
