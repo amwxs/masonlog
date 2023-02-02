@@ -14,7 +14,6 @@ namespace SharpMason.Logging.Test
             proc.Enqueue(new LogEntry
             {
                 AppId = "SharpMason"
-
             });
 
         }

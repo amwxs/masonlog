@@ -35,10 +35,5 @@ public class FileWriterTest
         var contents = File.ReadLines(filePath);
         Assert.NotNull(contents);
         Assert.True(contents.Last() == "hello");
-
-     
-
-        
-
     }
 }

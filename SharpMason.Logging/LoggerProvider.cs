@@ -5,10 +5,10 @@ using System.Collections.Concurrent;
 
 namespace SharpMason.Logging
 {
-    [ProviderAlias("Amld")]
+    [ProviderAlias("Mason")]
     public class LoggerProvider : ILoggerProvider
     {
-        private readonly ConcurrentDictionary<string,Logger> loggers = new();
+        private readonly ConcurrentDictionary<string,Logger> _loggers = new();
         private LoggerOption _option;
         private readonly IDisposable? _onChangeToken;
         private readonly Processor _processor;
@@ -28,7 +28,7 @@ namespace SharpMason.Logging
         private void RefreshLogger(LoggerOption loggerOption)
         {
             _option = loggerOption;
-            foreach (var logger in loggers.Values)
+            foreach (var logger in _loggers.Values)
             {
                 //日志配置项
                 logger.LoggerOption = loggerOption;
@@ -42,7 +42,7 @@ namespace SharpMason.Logging
         /// <returns></returns>
         public ILogger CreateLogger(string categoryName)
         {
-            return loggers.GetOrAdd(categoryName, name => new Logger(_processor, categoryName, _option));
+            return _loggers.GetOrAdd(categoryName, _ => new Logger(_processor, categoryName, _option));
         }
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace SharpMason.Logging
         /// </summary>
         public void Dispose()
         {
-            loggers.Clear();
+            _loggers.Clear();
             _onChangeToken?.Dispose();
-            _processor?.Dispose();
+            _processor.Dispose();
         }
     }
 }
