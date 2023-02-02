@@ -27,6 +27,7 @@ public class FileWriterTest
         var fileEntry = new FileEntry("hello");
         fileWriter.Writer(fileEntry);
         Thread.Sleep(2000);
+        fileWriter.Dispose();
 
         var filePath = Path.Combine(optionMock.Object.CurrentValue.LocalFilePath,
             optionMock.Object.CurrentValue.AppId!, fileEntry.FileName);
@@ -36,7 +37,7 @@ public class FileWriterTest
         Assert.True(contents.Last() == "hello");
 
      
-        fileWriter.Dispose();
+
         
 
     }

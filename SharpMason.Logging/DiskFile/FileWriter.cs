@@ -5,6 +5,7 @@ namespace SharpMason.Logging.DiskFile
 {
     public class FileWriter : IFileWriter
     {
+        private   StreamWriter? _writer = null;
         private readonly CancellationTokenSource _cts = new();
         private readonly BlockingCollection<FileEntry> _messageQueue;
         private readonly string _folder;
@@ -33,32 +34,33 @@ namespace SharpMason.Logging.DiskFile
                 {
                     if (_messageQueue.Count>0)
                     {
-                        StreamWriter? writer = null;
                         var fileName = string.Empty;
                         var count = 0;
                         while (_messageQueue.TryTake(out var log, 10))
                         {
-                            if (writer == null)
+                            if (_writer == null)
                             {
-                                writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
+                                _writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
                             }
                             else
                             {
                                 if (fileName != log.FileName)
                                 {
-                                    writer.Close();
-                                    writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
+                                    _writer.Close();//这里会自动写入磁盘
+                                    _writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
                                     fileName = log.FileName;
                                 }
                             }
-
-                            writer.WriteLine(log.Msg);
+                            //写信息
+                            _writer.WriteLine(log.Msg);
                             if (count++ > 100)
                             {
-                                break;
+                                //大于100条写入磁盘
+                                _writer.Flush();
                             }
                         }
-                        writer?.Close();
+                        //没有数据关闭流写入磁盘
+                        _writer?.Close();
                     }
                     Thread.Sleep(1000);
                 }
@@ -72,6 +74,7 @@ namespace SharpMason.Logging.DiskFile
 
         public void Dispose()
         {
+            _writer?.Close();
             _cts.Cancel();
             _messageQueue.Dispose();
         }
