@@ -12,10 +12,11 @@ namespace SharpMason.Logging
 
 
         public string LocalFilePath { get; set; } = "/var/logs/";
+
         /// <summary>
         /// 日志级别
         /// </summary>
-        public IDictionary<string, LogLevel> LogLevel { get; set; } = new Dictionary<string, LogLevel>();
+        public IDictionary<string, LogLevel> LogLevels { get; set; } = new Dictionary<string, LogLevel>();
         /// <summary>
         /// 日志队列长度
         /// </summary>

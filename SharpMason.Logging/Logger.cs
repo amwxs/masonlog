@@ -36,7 +36,7 @@ namespace SharpMason.Logging
 
             foreach (var prefix in GetKeyPrefix(CategoryName))
             {
-                if (LoggerOption.LogLevel.TryGetValue(prefix, out var level))
+                if (LoggerOption.LogLevels.TryGetValue(prefix, out var level))
                 {
                     return logLevel >= level;
                 }
