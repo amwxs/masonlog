@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SharpMason.Logging.DiskFile;
 
 namespace SharpMason.Logging.Test;
