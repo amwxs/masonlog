@@ -5,7 +5,7 @@ namespace SharpMason.Logging.DiskFile
 {
     public class FileWriter : IFileWriter
     {
-        private   StreamWriter? _writer = null;
+        private StreamWriter? _writer;
         private readonly CancellationTokenSource _cts = new();
         private readonly BlockingCollection<FileEntry> _messageQueue;
         private readonly string _folder;
@@ -40,15 +40,15 @@ namespace SharpMason.Logging.DiskFile
                         {
                             if (_writer == null)
                             {
-                                _writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
+                                _writer = new StreamWriter(Path.Combine(_folder, log.LogName), true);
                             }
                             else
                             {
-                                if (fileName != log.FileName)
+                                if (fileName != log.LogName)
                                 {
                                     _writer.Close();//这里会自动写入磁盘
-                                    _writer = new StreamWriter(Path.Combine(_folder, log.FileName), true);
-                                    fileName = log.FileName;
+                                    _writer = new StreamWriter(Path.Combine(_folder, log.LogName), true);
+                                    fileName = log.LogName;
                                 }
                             }
                             //写信息

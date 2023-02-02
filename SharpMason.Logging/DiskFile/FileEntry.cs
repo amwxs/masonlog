@@ -2,11 +2,11 @@
 {
     public class FileEntry
     {
-        public string FileName { get;set; }
-        public string Msg { get; set; }
-        public FileEntry(string msg)
+        public string LogName { get; }
+        public string Msg { get; }
+        public FileEntry(string msg,string logName="log")
         {
-            FileName =DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+            LogName = $"{logName}{DateTime.Now:yyyyMMdd}.log";
             Msg = msg;
         }
     }

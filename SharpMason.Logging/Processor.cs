@@ -27,7 +27,7 @@ namespace SharpMason.Logging
         {
             if (!_messageQueue.TryAdd(log))
             {
-                _fileWriter.Writer(new FileEntry("添加日志失败!"));
+                _fileWriter.Writer(new FileEntry("添加日志失败!","error"));
             };
         }
         private void Consumer()
@@ -46,9 +46,12 @@ namespace SharpMason.Logging
                 {
                     _messageQueue.CompleteAdding();
                 }
-                catch{
+                catch (Exception)
+                {
+                    // ignored
                 }
-                _fileWriter.Writer(new FileEntry("消费日志队列失败!" + e.ToString()));
+
+                _fileWriter.Writer(new FileEntry("消费日志队列失败!" + e.ToString(),"error"));
             }
         }
         public void Dispose()

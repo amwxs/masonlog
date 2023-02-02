@@ -30,7 +30,7 @@ public class FileWriterTest
         fileWriter.Dispose();
 
         var filePath = Path.Combine(optionMock.Object.CurrentValue.LocalFilePath,
-            optionMock.Object.CurrentValue.AppId!, fileEntry.FileName);
+            optionMock.Object.CurrentValue.AppId!, fileEntry.LogName);
 
         var contents = File.ReadLines(filePath);
         Assert.NotNull(contents);
