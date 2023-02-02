@@ -1,5 +1,4 @@
 using SharpMason.Logging.DiskFile;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -23,11 +22,17 @@ namespace SharpMason.Logging.Test
             var fileWriterMock = new Mock<IFileWriter>();
             var loggerProvider = new LoggerProvider(mock.Object, loggerWriterMock.Object, fileWriterMock.Object);
 
-            var name = "Business.Services.TextEncoderService";
+            const string name = "Business.Services.TextEncoderService";
             var logger = loggerProvider.CreateLogger(name);
             Assert.NotNull(logger);
             var loggerTwo = loggerProvider.CreateLogger(name);
             Assert.Equal(logger, loggerTwo);
+        }
+
+        [Fact]
+        public void XxTest()
+        {
+            
         }
     }
 }

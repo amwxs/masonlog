@@ -3,13 +3,13 @@
 public class PackResult
 {
 
-    public string Code { get; set; }
-    public string Error { get; set; }
+    public string? Code { get; set; }
+    public string? Error { get; set; }
 
 
     #region 静态简化构建方法
 
-    public static PackResult Ok(string code = PackConst.OK)
+    public static PackResult Ok(string code = PackConst.Ok)
     {
         return new PackResult { Code = code };
     }
@@ -19,11 +19,11 @@ public class PackResult
         return new PackResult { Code = code, Error = error };
     }
 
-    public static PackResult<T> Ok<T>(T data, string code = PackConst.OK)
+    public static PackResult<T> Ok<T>(T data, string code = PackConst.Ok)
     {
         return new PackResult<T> { Data = data, Code = code };
     }
-    public static PackResult<T> Ok<T>(T data, Paging paging, string code = PackConst.OK)
+    public static PackResult<T> Ok<T>(T data, Paging paging, string code = PackConst.Ok)
     {
         return new PackResult<T> { Data = data, Paging = paging, Code = code };
     }
@@ -36,15 +36,15 @@ public class PackResult
     #endregion
     public bool IsOk()
     {
-        return Code == PackConst.OK;
+        return Code == PackConst.Ok;
     }
 }
 
 
 public class PackResult<T> : PackResult
 {
-    public T Data { get; set; }
-    public Paging Paging { get; set; }
+    public T? Data { get; set; }
+    public Paging? Paging { get; set; }
 }
 
 public class Paging
@@ -62,6 +62,6 @@ public class Paging
 
 public class PackConst
 {
-    public const string OK = "1000";
+    public const string Ok = "1000";
     public const string Empty = "";
 }

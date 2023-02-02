@@ -14,13 +14,13 @@ namespace SharpMason.Extensions.Utils
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
-        public static string ToJson(this object obj, JsonSerializerOptions jsonOptions = null)
+        public static string ToJson(this object obj, JsonSerializerOptions? jsonOptions = null)
         {
             jsonOptions ??= JsonOptions;
             return JsonSerializer.Serialize(obj, jsonOptions);
         }
 
-        public static string ToIndentedJson(this object obj, JsonSerializerOptions jsonOptions = null)
+        public static string ToIndentedJson(this object obj, JsonSerializerOptions? jsonOptions = null)
         {
             jsonOptions ??= IndentedJsonOptions;
             return JsonSerializer.Serialize(obj, jsonOptions);

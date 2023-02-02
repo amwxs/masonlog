@@ -6,10 +6,11 @@
         /// 应用ID
         /// </summary>
         public string? AppId { get; set; }
+
         /// <summary>
         /// 当前SpanId
         /// </summary>
-        public string? SpanId { get; set; }
+        public string? SpanId;
 
         /// <summary>
         /// 父级SpanId
@@ -24,7 +25,7 @@
         /// <summary>
         /// 主机IP
         /// </summary>
-        public string HostIP { get; set; }
+        public string? HostIp { get; set; }
         /// <summary>
         /// 事件Id
         /// </summary>
@@ -32,7 +33,7 @@
         /// <summary>
         /// 日志级别
         /// </summary>
-        public string LogLevel { get; set; }
+        public string? LogLevel { get; set; }
         /// <summary>
         /// 异常信息
         /// </summary>

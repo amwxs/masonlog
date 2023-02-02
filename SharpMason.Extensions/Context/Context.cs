@@ -4,15 +4,14 @@
     {
         private Dictionary<string, object> Items { get; set; } = new();
 
-        public T TryGetValue<T>(string key)
+        public T? TryGetValue<T>(string key)
         {
-            if (Items.TryGetValue(key, out var value))
+            if (!Items.TryGetValue(key, out var value)) return default;
+            if (value is T t)
             {
-                if (value is T t)
-                {
-                    return t;
-                }
+                return t;
             }
+
             return default;
         }
 

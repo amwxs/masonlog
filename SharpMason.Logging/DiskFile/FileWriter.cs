@@ -5,44 +5,28 @@ namespace SharpMason.Logging.DiskFile
 {
     public class FileWriter : IFileWriter
     {
+        private readonly CancellationTokenSource _cts = new();
         private readonly BlockingCollection<FileEntry> _messageQueue;
-        private string _folder;
-        private readonly IDisposable? _onChangeToken;
+        private readonly string _folder;
         public FileWriter(IOptionsMonitor<LoggerOption> options)
         {
-            CreateOrUpdateDirectory(options.CurrentValue);
-
             _messageQueue = new BlockingCollection<FileEntry>(1024);
-            var outputThread = new Thread(Consumer)
-            {
-                IsBackground = true,
-                Name = "file queue processing thread"
-            };
-            outputThread.Start();
-
-
-            _onChangeToken = options.OnChange(CreateOrUpdateDirectory);
-
-            Writer(new FileEntry("init FileWriter success"));
-        }
-
-        private void CreateOrUpdateDirectory(LoggerOption loggerOption)
-        {
-            _folder = Path.Combine(loggerOption.LocalFilePath, loggerOption.AppId);
-
+            _folder = Path.Combine(options.CurrentValue.LocalFilePath, options.CurrentValue.AppId!);
             if (!string.IsNullOrWhiteSpace(_folder) && !Directory.Exists(_folder))
             {
                 Directory.CreateDirectory(_folder);
             }
+            var task = new Task(_ => Consumer(), _cts, TaskCreationOptions.LongRunning);
+            task.Start();
+            Writer(new FileEntry("Init FileWriter Success!"));
         }
-
+        
         public void Writer(FileEntry fileEntry)
         {
              _messageQueue.TryAdd(fileEntry);
         }
         private void Consumer()
         {
-
             try
             {
                 while (true)
@@ -88,7 +72,7 @@ namespace SharpMason.Logging.DiskFile
 
         public void Dispose()
         {
-            _onChangeToken?.Dispose();
+            _cts.Cancel();
             _messageQueue.Dispose();
         }
     }

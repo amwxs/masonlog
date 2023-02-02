@@ -78,11 +78,10 @@ namespace SharpMason.Logging
                 Message = state?.ToString()
             };
             // 附加信息
-            log.AppId = LoggerOption.AppId;
             log.SpanId = ContextAccessor.Current?.TryGetValue<string>(LogConst.SpanId);
             log.TraceId = ContextAccessor.Current?.TryGetValue<string>(LogConst.TraceId);
             log.ParentSpanId = ContextAccessor.Current?.TryGetValue<string>(LogConst.ParentSpanId);
-            log.HostIP = HostIP;
+            log.HostIp = HostIP;
             log.LogLevel = StrLogLevel(logLevel);
             log.RecordTime = DateTime.Now;
             if (LoggerOption.Console)

@@ -1,16 +1,16 @@
 ﻿
 namespace SharpMason.Extensions.Context
 {
-    public class ContextAccessor
+    public abstract class ContextAccessor
     {
-        private static readonly AsyncLocal<Context> _current = new();
+        private static readonly AsyncLocal<Context?> Local = new();
 
-        public static Context Current => _current.Value;
-        public static void Clear() => _current.Value = null;
+        public static Context? Current => Local.Value;
+        public static void Clear() => Local.Value = null;
 
         public static IDisposable Build(Context context)
         {
-            _current.Value = context;
+            Local.Value = context;
             return new ContextDisposable();
         }
 

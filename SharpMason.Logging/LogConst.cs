@@ -1,6 +1,6 @@
 ﻿namespace SharpMason.Logging
 {
-    public class LogConst
+    public abstract class LogConst
     {
         public const string SpanId = "x-span-id";
         public const string TraceId = "x-trace-id";

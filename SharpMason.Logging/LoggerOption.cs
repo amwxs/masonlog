@@ -4,11 +4,11 @@ namespace SharpMason.Logging
 {
     public class LoggerOption
     {
-        public string AppId { get; set; }
+        public string? AppId { get; set; } = string.Empty;
         /// <summary>
         /// 是否前台打印
         /// </summary>
-        public bool Console { get; set; } = false;
+        public bool Console { get; set; }
 
 
         public string LocalFilePath { get; set; } = "/var/logs/";

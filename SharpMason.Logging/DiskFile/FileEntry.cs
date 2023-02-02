@@ -6,7 +6,7 @@
         public string Msg { get; set; }
         public FileEntry(string msg)
         {
-            FileName =DateTime.Now.ToString("yyyy-MM-dd-HH") + ".log";
+            FileName =DateTime.Now.ToString("yyyy-MM-dd") + ".log";
             Msg = msg;
         }
     }

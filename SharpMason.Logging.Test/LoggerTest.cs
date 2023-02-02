@@ -23,17 +23,17 @@ namespace SharpMason.Logging.Test
                 "Default",
             };
 
-            var collectPrefixs = new List<string>();
+            var collectPerfixs = new List<string>();
             foreach (var keyPrefix in logger.GetKeyPrefix(name))
             {
-                collectPrefixs.Add(keyPrefix);
+                collectPerfixs.Add(keyPrefix);
             }
 
 
-            Assert.Equal(listKeyPrefix.Count, collectPrefixs.Count);
+            Assert.Equal(listKeyPrefix.Count, collectPerfixs.Count);
             for (int i = 0; i < listKeyPrefix.Count; i++)
             {
-                Assert.Equal(listKeyPrefix[i], collectPrefixs[i]);
+                Assert.Equal(listKeyPrefix[i], collectPerfixs[i]);
             }
         }
     }
