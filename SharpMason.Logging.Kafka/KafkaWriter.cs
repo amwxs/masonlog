@@ -25,13 +25,13 @@ namespace SharpMason.Logging.Kafka
             }
         }
 
-        public void Write(LogEntry log)
+        public void Write(LogEntry logEntry)
         {
             var producer = _kafkaClient.Producer();
             //异步写入
             producer.Produce(
                _options.Value.Topic,
-               new Message<Null, string>() { Value = log.ToJson() }, AsyncHandler);
+               new Message<Null, string>() { Value = logEntry.ToJson() }, AsyncHandler);
         }
 
         public void Dispose()

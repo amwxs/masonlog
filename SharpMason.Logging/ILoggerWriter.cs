@@ -2,6 +2,6 @@
 {
     public interface ILoggerWriter
     {
-        void Write(LogEntry log);
+        void Write(LogEntry logEntry);
     }
 }

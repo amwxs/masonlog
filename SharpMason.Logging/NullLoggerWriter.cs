@@ -2,7 +2,7 @@
 {
     public class NullLoggerWriter : ILoggerWriter
     {
-        public void Write(LogEntry log)
+        public void Write(LogEntry logEntry)
         {
 
         }

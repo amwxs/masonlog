@@ -9,7 +9,7 @@ namespace SharpMason.Logging
 {
     public static class LogExtensions
     {
-        public static ILoggingBuilder AddAmldLogger(this ILoggingBuilder builder)
+        public static ILoggingBuilder AddSharpMasonLogger(this ILoggingBuilder builder)
         {
             builder.AddConfiguration();
 
@@ -20,9 +20,9 @@ namespace SharpMason.Logging
             return builder;
         }
 
-        public static ILoggingBuilder AddAmldLogger(this ILoggingBuilder builder,Action<LoggerOption> configure)
+        public static ILoggingBuilder AddSharpMasonLogger(this ILoggingBuilder builder,Action<LoggerOption> configure)
         {
-            builder.AddAmldLogger();
+            builder.AddSharpMasonLogger();
             builder.Services.Configure(configure);
 
             return builder;
