@@ -1,12 +1,14 @@
-﻿namespace SharpMason.Logging.Kafka
+﻿using Confluent.Kafka;
+
+namespace SharpMason.Logging.Kafka
 {
 
     public class KafkaOption
     {
         public string? BootstrapServers { get; set; }
         public string Topic { get; set; } = "mason-log";
-        public int SaslMechanism { get; set; } = 1;
-        public int SecurityProtocol { get; set; } = 2;
+        public SaslMechanism SaslMechanism { get; set; }
+        public SecurityProtocol SecurityProtocol { get; set; }
         public string? SaslUsername { get; set; }
         public string? SaslPassword { get; set; }
     }

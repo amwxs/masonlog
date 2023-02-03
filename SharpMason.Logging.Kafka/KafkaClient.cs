@@ -12,8 +12,9 @@ namespace SharpMason.Logging.Kafka
         public KafkaClient(IOptionsMonitor<KafkaOption> options)
         {
             _kafkaOption = options.CurrentValue;
-            _onChangeToken = options.OnChange(ReBuild);
             _producer = Build();
+            _onChangeToken = options.OnChange(ReBuild);
+            
         }
         /// <summary>
         /// 构建Producer
@@ -28,12 +29,10 @@ namespace SharpMason.Logging.Kafka
             return new ProducerBuilder<Null, string>(new ProducerConfig
             {
                 BootstrapServers = _kafkaOption.BootstrapServers,
-                SaslMechanism = (SaslMechanism)_kafkaOption.SaslMechanism,
-                SecurityProtocol = (SecurityProtocol)_kafkaOption.SecurityProtocol,
+                SaslMechanism = _kafkaOption.SaslMechanism,
+                SecurityProtocol = _kafkaOption.SecurityProtocol,
                 SaslUsername = _kafkaOption.SaslUsername,
-                SaslPassword = _kafkaOption.SaslPassword,
-                
-
+                SaslPassword = _kafkaOption.SaslPassword
             }).Build();
         }
 
@@ -43,8 +42,8 @@ namespace SharpMason.Logging.Kafka
             _kafkaOption = option;
 
             var oldProducer = _producer;
-            _producer = Producer();
-
+            
+            _producer = Build();
             //数据推送到Broker
             oldProducer.Flush();
             //释放资源

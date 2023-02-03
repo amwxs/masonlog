@@ -1,6 +1,7 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Options;
 using SharpMason.Extensions.Utils;
+using SharpMason.Logging.DiskFile;
 
 namespace SharpMason.Logging.Kafka
 {
@@ -9,27 +10,28 @@ namespace SharpMason.Logging.Kafka
         private readonly IKafkaClient _kafkaClient;
 
         private readonly IOptions<KafkaOption> _options;
+        private readonly IFileWriter _fileWriter;
 
 
-        public KafkaWriter(IKafkaClient kafkaClient, IOptions<KafkaOption> options)
+        public KafkaWriter(IKafkaClient kafkaClient, IOptions<KafkaOption> options,IFileWriter fileWriter)
         {
             _kafkaClient = kafkaClient;
             _options = options;
+            _fileWriter = fileWriter;
         }
         //异步写入回调
         private void AsyncHandler(DeliveryReport<Null, string> deliveryReport)
         {
             if (deliveryReport.Error.IsError)
             {
-
+                _fileWriter.Writer(new FileEntry(deliveryReport.Error.ToJson(),"kafka_error"));
             }
         }
 
         public void Write(LogEntry logEntry)
         {
-            var producer = _kafkaClient.Producer();
             //异步写入
-            producer.Produce(
+            _kafkaClient.Producer().Produce(
                _options.Value.Topic,
                new Message<Null, string>() { Value = logEntry.ToJson() }, AsyncHandler);
         }
