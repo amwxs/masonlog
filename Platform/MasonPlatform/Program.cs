@@ -1,9 +1,13 @@
+using MasonPlatform;
 using MasonPlatform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(o =>
+{
+    o.Filters.Add<MasonExceptionFilter>();
+});
 //зЂВс
 builder.Services.AddScoped<ILogEntryService, LogEntryService>();
 

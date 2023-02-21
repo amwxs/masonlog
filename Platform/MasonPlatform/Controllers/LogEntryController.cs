@@ -30,15 +30,5 @@ namespace MasonPlatform.Controllers
             return await _logEntryService.LogEntrisAsync(logEntryReq);
         }
 
-        /// <summary>
-        /// ฯ๊ว้
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("Detail")]
-        public async Task<Pack<LogEntry>> Detail(string id)
-        {
-            return await _logEntryService.LogEntryAsync(id);
-        }
     }
 }
