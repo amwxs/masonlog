@@ -1,4 +1,5 @@
 .user
 .vs
-/*/obj
-/*/bin
+.idea
+obj
+bin

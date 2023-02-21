@@ -2,7 +2,7 @@
 {
     public class Context
     {
-        private Dictionary<string, object> Items { get; set; } = new();
+        private Dictionary<string, object> Items { get; } = new();
 
         public T? TryGetValue<T>(string key)
         {

@@ -1,67 +1,44 @@
-﻿namespace SharpMason.Core;
+﻿namespace SharpMason.Extensions;
 
-public class PackResult
+public class Pack
 {
-
     public string? Code { get; set; }
     public string? Error { get; set; }
 
-
     #region 静态简化构建方法
 
-    public static PackResult Ok(string code = PackConst.Ok)
+    public static Pack Ok(string code = PackConst.Ok)
     {
-        return new PackResult { Code = code };
+        return new Pack { Code = code };
     }
 
-    public static PackResult Fail(string code, string error = PackConst.Empty)
+    public static Pack<T> Ok<T>(T data, string code = PackConst.Ok)
     {
-        return new PackResult { Code = code, Error = error };
+        return new Pack<T> { Data = data, Code = code };
     }
-
-    public static PackResult<T> Ok<T>(T data, string code = PackConst.Ok)
+    public static Pack<T> Ok<T>(T data, Pager paging, string code = PackConst.Ok)
     {
-        return new PackResult<T> { Data = data, Code = code };
+        return new Pack<T> { Data = data, Pager = paging, Code = code };
     }
-    public static PackResult<T> Ok<T>(T data, Paging paging, string code = PackConst.Ok)
+    public static Pack Fail(string code, string error = PackConst.Empty)
     {
-        return new PackResult<T> { Data = data, Paging = paging, Code = code };
+        return new Pack { Code = code, Error = error };
     }
-
-    public static PackResult<T> Fail<T>(string code, string error = PackConst.Empty)
+    public static Pack<T> Fail<T>(string code, string error = PackConst.Empty)
     {
-        return new PackResult<T> { Code = code, Error = error };
+        return new Pack<T> { Code = code, Error = error };
     }
 
     #endregion
-    public bool IsOk()
+    public virtual bool IsOk()
     {
         return Code == PackConst.Ok;
     }
 }
 
-
-public class PackResult<T> : PackResult
+public class Pack<T> : Pack
 {
     public T? Data { get; set; }
-    public Paging? Paging { get; set; }
+    public Pager? Pager { get; set; }
 }
 
-public class Paging
-{
-    public int Total { get; set; }
-    public int PageSize { get; set; }
-    public int PageIndex { get; set; }
-    public Paging(int total, int pageSize, int pageIndex)
-    {
-        Total = total;
-        PageSize = pageSize;
-        PageIndex = pageIndex;
-    }
-}
-
-public class PackConst
-{
-    public const string Ok = "1000";
-    public const string Empty = "";
-}
