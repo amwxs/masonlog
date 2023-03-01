@@ -1,6 +1,6 @@
 ﻿using MasonPlatform.Models.Entities;
 
-namespace MasonPlatform.Repositorise
+namespace MasonPlatform.Core.Repositorise
 {
     public interface ILogEntryRepository
     {

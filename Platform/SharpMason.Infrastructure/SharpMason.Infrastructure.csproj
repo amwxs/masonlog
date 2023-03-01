@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpMason.Extensions\SharpMason.Extensions.csproj" />
-    <ProjectReference Include="..\MasonPlatform.Repositorise\MasonPlatform.Repositorise.csproj" />
+    <ProjectReference Include="..\MasonPlatform.Core\MasonPlatform.Core.csproj" />
   </ItemGroup>
 
 </Project>
