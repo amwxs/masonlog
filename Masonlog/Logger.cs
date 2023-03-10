@@ -6,7 +6,16 @@ namespace SharpMason.Logging
 {
     public class Logger : ILogger
     {
+        /// <summary>
+        /// 主机地址
+        /// </summary>
+        private readonly string _HostIP;
+
+        /// <summary>
+        /// 处理器
+        /// </summary>
         private readonly Processor _processor;
+
         /// <summary>
         /// 日志名
         /// </summary>
@@ -16,16 +25,13 @@ namespace SharpMason.Logging
         /// 日志配置
         /// </summary>
         internal LoggerOption LoggerOption { get; set; }
-        /// <summary>
-        /// 主机地址
-        /// </summary>
-        private readonly string HostIP;
 
-        public Logger(Processor processor,string categoryName, LoggerOption loggerOption)
+
+        public Logger(Processor processor,string categoryName, LoggerOption loggerOption,string hostIp)
         {
             CategoryName = categoryName;
             LoggerOption = loggerOption;
-            HostIP = NetWorkUtil.GetHostIp();
+            _HostIP = hostIp;
             _processor = processor;
         }
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
@@ -81,7 +87,7 @@ namespace SharpMason.Logging
             log.SpanId = LogContextAccessor.Current?.TryGetValue<string>(LogConst.SpanId);
             log.TraceId = LogContextAccessor.Current?.TryGetValue<string>(LogConst.TraceId);
             log.ParentSpanId = LogContextAccessor.Current?.TryGetValue<string>(LogConst.ParentSpanId);
-            log.HostIp = HostIP;
+            log.HostIp = _HostIP;
             log.LogLevel = StrLogLevel(logLevel);
             log.RecordTime = DateTime.Now;
             if (LoggerOption.Console)

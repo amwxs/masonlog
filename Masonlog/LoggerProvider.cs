@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using Masonlog.LocalFile;
+using SharpMason.Logging.Utils;
 
 namespace SharpMason.Logging
 {
@@ -12,12 +13,13 @@ namespace SharpMason.Logging
         private LoggerOption _option;
         private readonly IDisposable? _onChangeToken;
         private readonly Processor _processor;
-
+        private readonly string _hostIP;
 
         public LoggerProvider(IOptionsMonitor<LoggerOption> options, ILoggerWriter loggerWriter, IFileWriter fileWriter)
         {
             _option = options.CurrentValue;
             _onChangeToken = options.OnChange(RefreshLogger);
+            _hostIP = NetWorkUtil.GetHostIp();
             _processor = new Processor(_option.MaxQueueCount, loggerWriter, fileWriter);
         }
 
@@ -42,7 +44,7 @@ namespace SharpMason.Logging
         /// <returns></returns>
         public ILogger CreateLogger(string categoryName)
         {
-            return _loggers.GetOrAdd(categoryName, _ => new Logger(_processor, categoryName, _option));
+            return _loggers.GetOrAdd(categoryName, _ => new Logger(_processor, categoryName, _option, _hostIP));
         }
 
         /// <summary>

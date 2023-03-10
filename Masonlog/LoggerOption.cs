@@ -4,7 +4,11 @@ namespace SharpMason.Logging
 {
     public class LoggerOption
     {
+        /// <summary>
+        /// 应用ID
+        /// </summary>
         public string? AppId { get; set; } = string.Empty;
+
         /// <summary>
         /// 是否前台打印
         /// </summary>
@@ -17,9 +21,10 @@ namespace SharpMason.Logging
         /// 日志级别
         /// </summary>
         public IDictionary<string, LogLevel> LogLevels { get; set; } = new Dictionary<string, LogLevel>();
+
         /// <summary>
         /// 日志队列长度
         /// </summary>
-        public int MaxQueueCount { get; internal set; } = 5000;
+        public int MaxQueueCount { get; internal set; } = 1000;
     }
 }

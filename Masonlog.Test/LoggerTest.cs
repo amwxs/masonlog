@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Masonlog.LocalFile;
+using SharpMason.Logging.Utils;
 
 namespace SharpMason.Logging.Test
 {
@@ -13,7 +14,8 @@ namespace SharpMason.Logging.Test
 
             var loggerWriterMock = new Mock<ILoggerWriter>();
             var fileWriterMock = new Mock<IFileWriter>();
-            var logger = new Logger(new Processor(100, loggerWriterMock.Object, fileWriterMock.Object),name, new LoggerOption());
+            var _hostIP = NetWorkUtil.GetHostIp();
+            var logger = new Logger(new Processor(100, loggerWriterMock.Object, fileWriterMock.Object),name, new LoggerOption(), _hostIP);
            
             var listKeyPrefix = new List<string>
             {
