@@ -12,7 +12,7 @@ namespace SharpMason.Logging
         /// <summary>
         /// 是否前台打印
         /// </summary>
-        public bool Console { get; set; }
+        public bool IsConsole { get; set; }
 
 
         public string LocalFilePath { get; set; } = "/var/logs/";

@@ -25,7 +25,7 @@ public class LogExtensionsTest
         builder.AddSharpMasonLogger(cfg =>
         {
             cfg.AppId = "test";
-            cfg.Console = true;
+            cfg.IsConsole = true;
         } );
 
     }

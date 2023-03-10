@@ -90,7 +90,7 @@ namespace SharpMason.Logging
             log.HostIp = _HostIP;
             log.LogLevel = StrLogLevel(logLevel);
             log.RecordTime = DateTime.Now;
-            if (LoggerOption.Console)
+            if (LoggerOption.IsConsole)
             {
                 ConsoleColorPrint(logLevel, log);
             }

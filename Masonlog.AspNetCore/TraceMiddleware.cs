@@ -1,8 +1,10 @@
-﻿using Masonlog.Enhancer;
+﻿using Masonlog.AspNetCore;
+using Masonlog.Enhancer;
 using Masonlog.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Text;
 
@@ -24,7 +26,7 @@ namespace SharpMason.Logging.AspNetCore
          "stream"
         };
 
-        public TraceMiddleware(ILogger<TraceMiddleware> logger, RequestDelegate next)
+        public TraceMiddleware(ILogger<TraceMiddleware> logger, IOptionsMonitor<AspNetCoreOption> options, RequestDelegate next)
         {
             _logger = logger;
             _next = next;
